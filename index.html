@@ -50,19 +50,6 @@
       overflow: hidden;
     }
 
-    /* watermark logo in header background */
-    .card-header::before {
-      content: '';
-      position: absolute;
-      right: -28px;
-      top: -28px;
-      width: 200px;
-      height: 200px;
-      background: url('assets/logo-mark.png') center/contain no-repeat;
-      opacity: 0.1;
-      pointer-events: none;
-    }
-
     /* company row */
     .company-row {
       display: flex;
@@ -120,16 +107,15 @@
       overflow: hidden;
     }
 
-    /* watermark on right side of body */
-    .card-body::after {
-      content: '';
+    .watermark {
       position: absolute;
-      right: -24px;
-      bottom: -24px;
-      width: 160px;
-      height: 160px;
+      right: -30px;
+      top: 68%;
+      transform: translateY(-50%);
+      width: 210px;
+      height: 210px;
       background: url('assets/logo-mark.png') center/contain no-repeat;
-      opacity: 0.055;
+      opacity: 0.07;
       pointer-events: none;
       z-index: 0;
     }
@@ -304,6 +290,8 @@
         <span class="contact-value">michele.capocasale@orionware.io</span>
       </div>
     </a>
+
+    <div class="watermark"></div>
 
     <a class="contact-item" href="https://www.orionware.io" target="_blank" rel="noopener">
       <div class="contact-icon">
