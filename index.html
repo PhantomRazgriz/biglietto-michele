@@ -140,66 +140,53 @@
     .company-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
+      gap: 14px;
+      margin-bottom: 28px;
       position: relative;
       z-index: 1;
     }
 
     .logo-mark {
-      width: 40px;
-      height: 40px;
+      width: 64px;
+      height: 64px;
       flex-shrink: 0;
       filter: brightness(0) invert(1);
     }
 
     .logo-text {
-      height: 15px;
+      height: 17px;
       filter: brightness(0) invert(1);
       opacity: 0.9;
     }
 
-    .identity {
-      position: relative;
-      z-index: 1;
+    /* ── GOLD PROFILE ROW ── */
+    .contact-profile .contact-icon {
+      background: linear-gradient(135deg, #B8830A, #E8C84A);
+      box-shadow: 0 4px 16px rgba(200,160,30,0.4);
     }
 
-    .identity h1 {
-      font-size: 1.8rem;
+    .contact-profile:hover .contact-icon {
+      box-shadow: 0 6px 22px rgba(200,160,30,0.6);
+    }
+
+    .contact-profile .contact-label {
+      color: #C9A84C;
+    }
+
+    .contact-profile .profile-name {
+      font-size: 1.05rem;
       font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
     }
 
-    .identity .role {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 12px;
-      font-size: 0.68rem;
+    .contact-profile .profile-role {
+      font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 20px;
-      padding: 5px 13px;
-      backdrop-filter: blur(4px);
-    }
-
-    .role-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.6);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: 0.4; transform: scale(0.7); }
+      color: #C9A84C;
+      margin-top: 3px;
+      letter-spacing: 0.02em;
     }
 
     /* ── BODY ── */
@@ -401,8 +388,13 @@
         padding: 32px 24px 28px;
       }
 
-      .identity h1 {
-        font-size: 1.55rem;
+      .logo-mark {
+        width: 52px;
+        height: 52px;
+      }
+
+      .contact-profile .profile-name {
+        font-size: 0.95rem;
       }
 
       .contact-item {
@@ -447,16 +439,23 @@
       <img class="logo-mark" src="assets/logo-mark.png" alt="Orionware logo" />
       <img class="logo-text" src="assets/logo-text.png" alt="Orionware" />
     </div>
-    <div class="identity">
-      <h1>Michele Capocasale</h1>
-      <span class="role"><span class="role-dot"></span>CEO &amp; Co-Founder</span>
-    </div>
   </div>
 
   <!-- BODY -->
   <div class="card-body">
 
     <div class="watermark"></div>
+
+    <div class="contact-item contact-profile">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="contact-info">
+        <span class="contact-label">Profilo</span>
+        <span class="profile-name">Michele Capocasale</span>
+        <span class="profile-role">CEO &amp; Co-Founder</span>
+      </div>
+    </div>
 
     <a class="contact-item" href="tel:+390554934297">
       <div class="contact-icon">
