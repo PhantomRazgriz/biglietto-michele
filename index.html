@@ -7,20 +7,20 @@
   <meta name="description" content="Bigliettino da visita virtuale di Michele Capocasale, CEO & Co-Founder di Orionware Srl." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --gradient-start: #B8254B;
-      --gradient-end:   #2E1A4A;
-      --gradient: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-      --bg: #f7f6f9;
-      --card-bg: #ffffff;
-      --text-primary: #1a1025;
-      --text-secondary: #6b6178;
-      --divider: #ece9f1;
+      --g-start: #B8254B;
+      --g-end:   #2E1A4A;
+      --gradient: linear-gradient(135deg, var(--g-start), var(--g-end));
+      --bg:       #f0edf5;
+      --card-bg:  #ffffff;
+      --text:     #1a1025;
+      --muted:    #7a7088;
+      --line:     #ede9f4;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -29,107 +29,134 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px 16px;
+      padding: 32px 20px;
     }
 
-    /* ---------- CARD ---------- */
+    /* ── CARD SHELL ── */
     .card {
       background: var(--card-bg);
-      border-radius: 24px;
-      max-width: 420px;
+      border-radius: 28px;
       width: 100%;
+      max-width: 480px;
+      box-shadow: 0 8px 48px rgba(46, 26, 74, 0.14);
       overflow: hidden;
-      box-shadow: 0 4px 40px rgba(46, 26, 74, 0.12);
     }
 
-    /* top gradient bar */
+    /* ── HEADER ── */
     .card-header {
       background: var(--gradient);
-      padding: 36px 32px 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 20px;
+      padding: 40px 36px 36px;
       position: relative;
+      overflow: hidden;
     }
 
-    /* subtle circular watermark in header */
-    .card-header::after {
+    /* watermark logo in header background */
+    .card-header::before {
       content: '';
       position: absolute;
-      right: -30px;
-      bottom: -40px;
-      width: 160px;
-      height: 160px;
+      right: -28px;
+      top: -28px;
+      width: 200px;
+      height: 200px;
       background: url('assets/logo-mark.png') center/contain no-repeat;
-      opacity: 0.12;
+      opacity: 0.1;
       pointer-events: none;
     }
 
-    .logo-row {
+    /* company row */
+    .company-row {
       display: flex;
       align-items: center;
       gap: 12px;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
     }
 
     .logo-mark {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
       filter: brightness(0) invert(1);
     }
 
     .logo-text {
-      height: 18px;
+      height: 16px;
       filter: brightness(0) invert(1);
     }
 
+    /* person identity */
     .identity {
       position: relative;
       z-index: 1;
     }
 
     .identity h1 {
-      font-size: 1.55rem;
-      font-weight: 600;
-      color: #ffffff;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
     }
 
-    .identity p {
-      font-size: 0.85rem;
-      font-weight: 400;
-      color: rgba(255,255,255,0.75);
-      margin-top: 4px;
-      letter-spacing: 0.04em;
+    .identity .role {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 4px 12px;
     }
 
-    /* ---------- CONTACTS ---------- */
+    /* ── BODY ── */
     .card-body {
-      padding: 28px 32px 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+      padding: 8px 0;
+      position: relative;
+      overflow: hidden;
     }
 
+    /* watermark on right side of body */
+    .card-body::after {
+      content: '';
+      position: absolute;
+      right: -24px;
+      bottom: -24px;
+      width: 160px;
+      height: 160px;
+      background: url('assets/logo-mark.png') center/contain no-repeat;
+      opacity: 0.055;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── CONTACT ROWS ── */
     .contact-item {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--divider);
+      gap: 16px;
+      padding: 16px 36px;
       text-decoration: none;
       color: inherit;
-      transition: opacity 0.15s;
+      transition: background 0.15s;
+      position: relative;
+      z-index: 1;
     }
-    .contact-item:last-of-type { border-bottom: none; }
-    .contact-item:hover { opacity: 0.7; }
+
+    .contact-item:hover { background: #faf8fd; }
+
+    .contact-item + .contact-item {
+      border-top: 1px solid var(--line);
+    }
 
     .contact-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
       background: var(--gradient);
       display: flex;
       align-items: center;
@@ -147,63 +174,84 @@
       stroke-linejoin: round;
     }
 
-    .contact-info { display: flex; flex-direction: column; }
+    .contact-info { display: flex; flex-direction: column; gap: 2px; }
 
     .contact-label {
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: var(--text-secondary);
+      font-size: 0.67rem;
+      font-weight: 600;
+      color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
     }
 
     .contact-value {
-      font-size: 0.95rem;
+      font-size: 0.93rem;
       font-weight: 400;
-      color: var(--text-primary);
-      margin-top: 2px;
+      color: var(--text);
+      line-height: 1.4;
     }
 
-    /* ---------- SAVE BUTTON ---------- */
+    /* ── SAVE BUTTON ── */
+    .btn-wrap {
+      padding: 20px 36px 28px;
+      position: relative;
+      z-index: 1;
+    }
+
     .btn-save {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       width: 100%;
-      padding: 16px;
+      padding: 15px 20px;
       background: var(--gradient);
       color: #fff;
       font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: 0.02em;
       border: none;
       border-radius: 14px;
       cursor: pointer;
-      margin-top: 24px;
-      text-align: center;
       transition: opacity 0.2s, transform 0.15s;
     }
-    .btn-save:hover  { opacity: 0.9; transform: translateY(-1px); }
-    .btn-save:active { opacity: 1;   transform: translateY(0);    }
 
-    /* ---------- FOOTER ---------- */
+    .btn-save:hover  { opacity: 0.88; transform: translateY(-1px); }
+    .btn-save:active { opacity: 1;    transform: none; }
+
+    .btn-save svg {
+      width: 17px;
+      height: 17px;
+      stroke: #fff;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
     .card-footer {
-      padding: 0 32px 24px;
+      border-top: 1px solid var(--line);
+      padding: 14px 36px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
     }
 
     .card-footer span {
       font-size: 0.72rem;
-      color: var(--text-secondary);
+      color: var(--muted);
     }
 
     .piva-badge {
-      font-size: 0.7rem;
-      color: var(--text-secondary);
-      border: 1px solid var(--divider);
+      font-size: 0.68rem;
+      color: var(--muted);
+      border: 1px solid var(--line);
       border-radius: 6px;
-      padding: 2px 7px;
+      padding: 3px 8px;
       white-space: nowrap;
     }
   </style>
@@ -214,17 +262,17 @@
 
   <!-- HEADER -->
   <div class="card-header">
-    <div class="logo-row">
-      <img class="logo-mark" src="assets/logo-mark.png" alt="Orionware logo mark" />
+    <div class="company-row">
+      <img class="logo-mark" src="assets/logo-mark.png" alt="Orionware logo" />
       <img class="logo-text" src="assets/logo-text.png" alt="Orionware" />
     </div>
     <div class="identity">
       <h1>Michele Capocasale</h1>
-      <p>CEO &amp; Co-Founder</p>
+      <span class="role">CEO &amp; Co-Founder</span>
     </div>
   </div>
 
-  <!-- BODY -->
+  <!-- CONTACTS -->
   <div class="card-body">
 
     <a class="contact-item" href="tel:+390554934297">
@@ -277,9 +325,13 @@
       </div>
     </a>
 
-    <button class="btn-save" onclick="saveContact()">
-      ⬇ Salva Contatto
-    </button>
+    <div class="btn-wrap">
+      <button class="btn-save" onclick="saveContact()">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Salva Contatto
+      </button>
+    </div>
+
   </div>
 
   <!-- FOOTER -->
