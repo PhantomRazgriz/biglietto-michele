@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,300&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     :root {
       --gs: #B8254B;
@@ -361,33 +360,6 @@
 
     .btn-save span { position: relative; z-index: 1; }
 
-    /* ── QR CODE ── */
-    .card-qr {
-      border-top: 1px solid var(--line);
-      padding: 24px 36px 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .qr-label {
-      font-size: 0.62rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .qr-wrapper {
-      background: #fff;
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: 0 4px 28px rgba(0,0,0,0.35);
-    }
-
-    #qr-el canvas { display: block; }
-
     /* ── FOOTER ── */
     .card-footer {
       border-top: 1px solid var(--line);
@@ -500,14 +472,6 @@
 
   </div>
 
-  <!-- QR CODE -->
-  <div class="card-qr">
-    <p class="qr-label">Scansiona per aprire</p>
-    <div class="qr-wrapper">
-      <div id="qr-el"></div>
-    </div>
-  </div>
-
   <!-- FOOTER -->
   <div class="card-footer">
     <span>Orionware Srl</span>
@@ -517,39 +481,6 @@
 </div>
 
 <script>
-  (function initQR() {
-    const el   = document.getElementById('qr-el');
-    const size = 180;
-
-    new QRCode(el, {
-      text:         'https://phantomrazgriz.github.io/biglietto-michele/',
-      width:        size,
-      height:       size,
-      colorDark:    '#2E1A4A',
-      colorLight:   '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H
-    });
-
-    // overlay logo mark after QR renders
-    setTimeout(() => {
-      const canvas = el.querySelector('canvas');
-      if (!canvas) return;
-      const ctx      = canvas.getContext('2d');
-      const logoSize = Math.round(size * 0.23);
-      const x        = (size - logoSize) / 2;
-      const y        = (size - logoSize) / 2;
-      const pad      = 6;
-
-      // white square behind logo for QR readability
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(x - pad, y - pad, logoSize + pad * 2, logoSize + pad * 2);
-
-      const img  = new Image();
-      img.onload = () => ctx.drawImage(img, x, y, logoSize, logoSize);
-      img.src    = 'assets/logo-mark.png';
-    }, 200);
-  })();
-
   function saveContact() {
     const vcard = [
       'BEGIN:VCARD',

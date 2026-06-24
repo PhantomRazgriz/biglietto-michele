@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Genera QR Code – Orionware</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      background: #07040f;
+      font-family: sans-serif;
+    }
+
+    #qr-el { display: none; }
+
+    canvas#output {
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+
+    button {
+      padding: 13px 32px;
+      background: linear-gradient(135deg, #B8254B, #2E1A4A);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+    }
+    button:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+<div id="qr-el"></div>
+<canvas id="output"></canvas>
+<button onclick="downloadQR()">Scarica PNG</button>
+
+<script>
+  const SIZE    = 400;
+  const PADDING = 32;
+  const URL     = 'https://phantomrazgriz.github.io/biglietto-michele/';
+
+  // 1. generate QR into hidden div
+  new QRCode(document.getElementById('qr-el'), {
+    text:         URL,
+    width:        SIZE,
+    height:       SIZE,
+    colorDark:    '#2E1A4A',
+    colorLight:   '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  // 2. after render, compose final canvas with padding + logo
+  window.addEventListener('load', () => {
+    setTimeout(composeFinal, 300);
+  });
+
+  function composeFinal() {
+    const qrCanvas = document.querySelector('#qr-el canvas');
+    const out      = document.getElementById('output');
+    const total    = SIZE + PADDING * 2;
+    out.width  = total;
+    out.height = total;
+    const ctx  = out.getContext('2d');
+
+    // white background with rounded clip
+    ctx.fillStyle = '#ffffff';
+    roundRect(ctx, 0, 0, total, total, 24);
+    ctx.fill();
+
+    // draw QR
+    ctx.drawImage(qrCanvas, PADDING, PADDING, SIZE, SIZE);
+
+    // overlay logo mark
+    const logoSize = Math.round(SIZE * 0.22);
+    const lx = PADDING + (SIZE - logoSize) / 2;
+    const ly = PADDING + (SIZE - logoSize) / 2;
+    const pad = 8;
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(lx - pad, ly - pad, logoSize + pad * 2, logoSize + pad * 2);
+
+    const logo  = new Image();
+    logo.onload = () => ctx.drawImage(logo, lx, ly, logoSize, logoSize);
+    logo.src    = 'assets/logo-mark.png';
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  function downloadQR() {
+    const a    = document.createElement('a');
+    a.href     = document.getElementById('output').toDataURL('image/png');
+    a.download = 'orionware-qr-michele.png';
+    a.click();
+  }
+</script>
+</body>
+</html>
