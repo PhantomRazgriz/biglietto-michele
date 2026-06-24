@@ -80,18 +80,6 @@
     // draw QR
     ctx.drawImage(qrCanvas, PADDING, PADDING, SIZE, SIZE);
 
-    // overlay logo mark
-    const logoSize = Math.round(SIZE * 0.22);
-    const lx = PADDING + (SIZE - logoSize) / 2;
-    const ly = PADDING + (SIZE - logoSize) / 2;
-    const pad = 8;
-
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(lx - pad, ly - pad, logoSize + pad * 2, logoSize + pad * 2);
-
-    const logo  = new Image();
-    logo.onload = () => ctx.drawImage(logo, lx, ly, logoSize, logoSize);
-    logo.src    = 'assets/logo-mark.png';
   }
 
   function roundRect(ctx, x, y, w, h, r) {
